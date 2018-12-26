@@ -13,4 +13,4 @@
         User user= userService.queryUser(userId);
         return super.SUCCESS(user,200);
     }
-~~~
+~~~(java)
