@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/com.travel-module.iml" filepath="$PROJECT_DIR$/com.travel-module.iml" />
+      <module fileurl="file://$PROJECT_DIR$/travel-app/travel-app.iml" filepath="$PROJECT_DIR$/travel-app/travel-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/travel-back-sys/travel-back-sys.iml" filepath="$PROJECT_DIR$/travel-back-sys/travel-back-sys.iml" />
+      <module fileurl="file://$PROJECT_DIR$/travel-common/travel-common.iml" filepath="$PROJECT_DIR$/travel-common/travel-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/travel-webapp/travel-webapp.iml" filepath="$PROJECT_DIR$/travel-webapp/travel-webapp.iml" />
+    </modules>
+  </component>
+</project>

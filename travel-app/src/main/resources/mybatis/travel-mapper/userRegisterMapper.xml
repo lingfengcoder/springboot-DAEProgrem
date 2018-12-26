@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.travel.app.mapper.user.UserRegisterMapper">
+
+
+    <insert id="register"  parameterType="com.travel.app.entity.user.User" >
+        insert into tb_user (user_id,username,password,create_time,phone,email,is_vip,available)
+         values (#{userId},#{username},#{password},#{createTime},#{phone},#{email},0,1);
+    </insert>
+    <select id="checkUserExist" parameterType="com.travel.app.entity.user.User" resultType="com.travel.app.entity.user.User">
+        select * from tb_user where username=#{username} || phone=#{phone}
+    </select>
+</mapper>

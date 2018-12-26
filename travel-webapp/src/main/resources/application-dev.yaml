@@ -1,0 +1,50 @@
+#SpringBoot默认使用Log4j(接口)+logBack(实现)
+server:
+  port: 8080
+
+spring:
+  #指定静态文件位置
+  #spring.resources.static-locations=classpath:/travelBack,classpath:/travelApp,classpath:/upload_file
+  #server.servlet.context-path=/travel
+  aop:
+    auto: true
+  profiles: dev
+
+  datasource:
+    username: xxx
+    password: xxxx
+    url: jdbc:mysql://xxx/aaa?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    # 校验SQL，Oracle配置 spring.datasource.validationQuery=SELECT 1 FROM DUAL，如果不配validationQuery项，则下面三项配置无用
+    validationQuery: SELECT 'x'
+    #建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    filters: stat,wall,logback,config #logback 无效果
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    logSlowSql: true
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500;config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJohxs89lDY3zQhaPJfw7g1SOsD0dW5oob9Pqzj0M6e2kv70vZGOfvlSr5db9vwd55BoHdqWnqYawOsj3LEUhnsCAwEAAQ==
+
+
+mybatis:
+      config-location: classpath:/mybatis/mybatis-config.xml
+      mapper-locations: classpath*:/mybatis/travel-mapper/*.xml #classpath* (*指所有jar包下的classpath)
+
+druid-boot-config:
+   druidRootName: admin
+   druidPassword: 123456
+

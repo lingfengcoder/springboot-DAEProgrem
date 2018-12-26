@@ -1,0 +1,317 @@
+﻿<html>
+
+<head>
+<link rel='stylesheet' href='https://www.koudairoo.com/css/jingyoustyle.css'>
+<style>
+html,body{
+    font-size: 12px;
+	left: 0;
+    right: 0;
+    margin: auto;
+	}
+
+ body{list-style:none;}
+ img {max-width:100%}
+ #target_html{ 
+ }
+
+ .black_angle{
+    width: 0px;
+    height: 0px;
+    display: inline-block;
+    border: 10px #000 solid;
+ }
+  /* 填涂方块*/
+  .flag_block{
+	 width:16px;
+	 height:16px;
+	 border:2px solid #000;
+	 margin:5px;
+	 display: inline-block;
+	 vertical-align: middle;
+  }
+  
+ .right_block{
+	 border:2px solid #000;
+ }
+ .wrong_block_01{
+	background:#000;
+ }
+
+ .wrong_block_02{
+	 background:#000;
+ }
+  .wrong_block_02>div{
+	 background:#fff;
+	 height:50%;
+ }
+ .wrong_block_03{
+	 background:#fff;
+ }
+
+ .wrong_block_03>div{
+	 border:2px solid #000;
+	 border-radius:16px;
+	 width:10px;
+	 height:10px;
+	 left:0;
+	 right:0;
+	 margin:auto;
+	 margin-top:1px;
+ }
+   .wrong_block_04>div{
+	 border:2px solid #000;
+	 background:#000;
+	 border-radius:16px;
+	 width:10px;
+	 height:10px;
+	 left:0;
+	 right:0;
+	 margin:auto;
+	 margin-top:1px;
+ }
+ 
+ 
+ .header-title{
+  margin:10px 0;
+ }
+ .header-title .up-header{
+   display:flex;
+   text-align:center;
+   width:100%;
+ }
+ .paper_name{
+    width: 80%;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+  
+  .header-content{
+	  left:0;
+	  right:0;
+	  margin:auto;
+	  margin-top:10px;
+	  border-top:2px solid #000;
+	  border-bottom:2px solid #000;
+	  width:95%;
+	  padding:20px;
+	  display: flex;
+	  justify-content: space-between;
+  }
+  .header-content>div{
+	  border:2px solid #000;
+  }
+  
+  .header-content>div:nth-child(1){
+      width: 135px;
+  }
+  .header-content>div:nth-child(2){
+	  width:auto;
+	  display:inline-block;
+  }
+  .header-content>div:nth-child(3){
+	  width:206px;
+	  display:inline-block;
+	  padding:2px;
+	  
+  }
+  .header-content>div:nth-child(3) ul{
+	  list-style:none;
+  }
+
+  
+  .header-content ul{
+	  display:inline-block;
+  }
+  .header-content ul>li:nth-child(4){
+	  list-style:none;
+	  margin-top:20px;
+  }
+  .header-content img{
+	  width:100%;
+  }
+  .A4Paper{
+  position:relative;
+  }
+  .mark_eaxm{
+  border-left:1px #000 solid;
+  border-right:1px #000 solid;
+   position:absolute;
+   width:110px;
+   height:100%;
+   top:135px;
+   right:0px;
+  }
+  *{
+  font-size:12px;
+  }
+  #footer{
+  display:none;
+  margin:10px 0;
+  }
+ </style>
+</head>
+<script>
+
+var A4Width,A4Height;
+
+//获取屏幕DPI
+function js_getDPI() {
+    var arrDPI = new Array();
+    if (window.screen.deviceXDPI != undefined) {
+        arrDPI[0] = window.screen.deviceXDPI;
+        arrDPI[1] = window.screen.deviceYDPI;
+    }
+    else {
+        var tmpNode = document.createElement("DIV");
+        tmpNode.style.cssText = "width:1in;height:1in;position:absolute;left:0px;top:0px;z-index:99;visibility:hidden";
+        document.body.appendChild(tmpNode);
+        arrDPI[0] = parseInt(tmpNode.offsetWidth);
+        arrDPI[1] = parseInt(tmpNode.offsetHeight);
+        tmpNode.parentNode.removeChild(tmpNode);    
+    }
+    return arrDPI;
+}
+
+//获取A4纸大小
+
+function getA4Size(){
+ var DPIArr=js_getDPI();
+A4Width　=(8.27 - 0.75 * 2) * DPIArr[0]-2 ; //(8.27 - 0.75 * 2) * 96 / 600 = 650 px
+A4Height =(11.69 - 0.75 * 2)* DPIArr[1] -2 ;   //(11.69 - 0.75 * 2)* 96 / 600 = 978 px
+
+return {width:A4Width　,height:A4Height}
+}
+window.onload=function(){
+console.log(getA4Size());
+}
+</script>
+
+<script>
+
+//设定页面宽度
+ window.onload=function(){
+  var size=getA4Size();
+  document.body.style.setProperty("width",size.width);//=+"px";
+  
+  var mark_eaxm=document.getElementById("mark_eaxm");
+  var target_dom= document.getElementById("target_html");
+  target_dom.style.setProperty("width",(size.width-mark_eaxm.offsetWidth-20)+"px");
+  
+  //设置头部宽度
+  var header=document.getElementsByClassName("header-big")[0];
+  header.style.setProperty("width",A4Width+"px");
+  
+  //设置尾部宽度
+  var footer=document.getElementsByClassName("header-title")[0];
+  footer.style.setProperty("width",A4Width+"px");
+  
+  //var footer=document.querySelector("header-title");
+ // footer.style.setProperty("width",A4Width+"px");
+  
+  splitPaper();
+ }
+ //排版
+ function handlerTypesetting(){
+ //1.获取二维码和试卷标题
+ //2.获取试卷主体
+ //3.通过每一题题干的特殊class='myli' 为题干添加右侧 判题区域
+ //4.获取对应屏幕下的A4大小 然后添加 头部信息 根据A4进行分页处理
+ //5.打印预览 
+ 
+ }
+ 
+ /*
+ 克隆模板
+ */
+ function cloneTemp(target){
+  var header=document.querySelector(target);
+  if(header instanceof Array)header=header[0];
+  var _temp=document.createElement("div");
+			_temp.innerHTML=header.outerHTML;
+  return _temp;
+ }
+ 
+ function splitPaper(){
+ 
+ var paperArr=document.getElementsByClassName("myli");
+  var paperLen=document.getElementById("A4Paper").offsetHeight;
+   var _A4Height=A4Height//-133;
+	
+   for(var count=0;count<paperLen/_A4Height;count++){
+	console.log(count);
+	//添加分页	
+	
+	
+	//temp.style.setProperty("position","absolute");
+	//temp.style.setProperty("top",_A4Height*count+"px");
+	
+	var allDomNode=document.querySelectorAll("li>div>div>span");
+	var _height=0;
+	for(var i=0;i<allDomNode.length;i++){
+		var childNodes=allDomNode[i].childNodes
+		for(var j=0;j<childNodes.length;j++ ){
+		
+		var temp=document.createElement("div");
+	
+		temp=cloneTemp(".header-big");
+		temp.style.pageBreakBefore="always";
+		
+		  var item=childNodes[j];
+		 if(item.offsetHeight)_height+=item.offsetHeight;
+		 if(_height>=_A4Height*(count+1)){
+		 try{
+		   item.appendChild(temp);
+		  }catch(err){
+			item.parentNode.appendChild(temp);
+		  }
+		   break;
+		 }
+	}
+	
+	
+	}
+
+
+	
+	
+   }
+   
+ }
+
+</script>
+
+<body>
+
+<div id="A4Paper" class="A4Paper">
+
+<div class="header-big">
+<div class="header-title">
+	<div class="up-header">
+		<div class="black_angle left"></div>
+		<div class="paper_name">&nbsp;</div>
+		<div class="black_angle right"></div>
+	 </div>
+</div>
+<img width="100%" src="header.png">
+</div>
+
+<div id="target_html">
+
+<div data-v-088ff047="" class="preArea"><li data-v-088ff047="" class="myli"><p data-v-088ff047="" class="tip">1、选择题</p> <div data-v-088ff047="" style="margin-left: 2%; margin-top: 1.5%; width: 100%;"><div data-v-088ff047="" style="font-size: 15px; color: rgb(102, 102, 102); font-weight: bold; display: flex; width: 100%;">1、<span data-v-088ff047="" style="width: 100%;">下列有关生物学实验的叙述，错误的是（　　）</span></div> <div data-v-088ff047="" class="choice"><div data-v-088ff047="" class="innerli"><span data-v-088ff047="">A、用台盼蓝染液对酵母菌细胞进行染色，可鉴别酵母菌细胞是否有活性</span></div><div data-v-088ff047="" class="innerli"><span data-v-088ff047="">B、可通过观察根尖分生区细胞中染色体的数量和形态来判断有丝分裂的各时期</span></div><div data-v-088ff047="" class="innerli"><span data-v-088ff047="">C、在注射R型菌与经高温处理过的S型菌的混合物后，老鼠死亡，证明了转化因子的存在</span></div><div data-v-088ff047="" class="innerli"><span data-v-088ff047="">D、温特实验证明了燕麦胚芽鞘尖端产生的影响胚芽鞘下部弯曲生长的物质是吲哚乙酸</span></div> </div> <div data-v-088ff047="" class="ans" style="margin-top: 0.8rem; display: none;"><div data-v-088ff047="" class="analysis"><!----></div> <!----></div></div></li><li data-v-088ff047="" class="myli"><p data-v-088ff047="" class="tip">2、填空题</p> <div data-v-088ff047="" style="margin-left: 2%; margin-top: 1.5%; width: 100%;"><div data-v-088ff047="" style="font-size: 15px; color: rgb(102, 102, 102); font-weight: bold; display: flex; width: 100%;">1、<span data-v-088ff047="" style="width: 100%;">如图是生长素发现过程示意图．请据图回答：<br><img alt="菁优网" src="http://img.jyeoo.net/quiz/images/201412/23/36f94318.png" style="vertical-align:middle"><br>（1）图1和2对照可以证明胚芽鞘具有<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->．<br>（2）<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->对照可以证明与生长和弯曲有关的部位是胚芽鞘尖端；图3和4能否进行对照？解释原因<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->．<br>（3）图4和5对照可以证明感受光刺激的部位是胚芽鞘<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->，而仔细观察可以发现发生生长和弯曲的部位是<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->．<br>（4）图6能否证明胚芽鞘尖端能够产生某种促进生长的物质？<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->，解释原因<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->．<br>（5）经科学家努力，从植物组织中分离出了生长素并鉴定出了它的化学本质是<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->．</span></div> <div data-v-088ff047="" class="choice"> </div> <div data-v-088ff047="" class="ans" style="margin-top: 0.8rem; display: none;"><div data-v-088ff047="" class="analysis"><!----></div> <!----></div></div></li><li data-v-088ff047="" class="myli"><p data-v-088ff047="" class="tip">3、多选题</p> <div data-v-088ff047="" style="margin-left: 2%; margin-top: 1.5%; width: 100%;"><div data-v-088ff047="" style="font-size: 15px; color: rgb(102, 102, 102); font-weight: bold; display: flex; width: 100%;">1、<span data-v-088ff047="" style="width: 100%;"><img alt="菁优网" src="http://img.jyeoo.net/quiz/images/201802/20/4db8f272.png" style="vertical-align:middle;FLOAT:right;">1928年，荷兰学者F．W．Went把燕麦胚芽鞘尖端切下，放在琼脂薄片上，约1h～2h后移去胚芽鞘尖端，将琼脂小块放在去顶的胚芽鞘一侧，然后置于黑暗条件下培养，胚芽鞘逐渐向放置琼脂小块的对侧弯曲生长，该实验结果可以直接证明的问题有（　　）</span></div> <div data-v-088ff047="" class="choice"><div data-v-088ff047="" class="innerli"><span data-v-088ff047="">A、单侧光使该物质在胚芽鞘内分布不均匀，胚芽鞘弯曲生长</span></div><div data-v-088ff047="" class="innerli"><span data-v-088ff047="">B、影响生长的物质可以自尖端运输到下部</span></div><div data-v-088ff047="" class="innerli"><span data-v-088ff047="">C、尖端产生物质能促进胚芽鞘下面部分的生长</span></div><div data-v-088ff047="" class="innerli"><span data-v-088ff047="">D、胚芽鞘尖端能产生影响生长的物质</span></div> </div> <div data-v-088ff047="" class="ans" style="margin-top: 0.8rem; display: none;"><div data-v-088ff047="" class="analysis"><!----></div> <!----></div></div></li><li data-v-088ff047="" class="myli"><p data-v-088ff047="" class="tip">4、实验题</p> <div data-v-088ff047="" style="margin-left: 2%; margin-top: 1.5%; width: 100%;"><div data-v-088ff047="" style="font-size: 15px; color: rgb(102, 102, 102); font-weight: bold; display: flex; width: 100%;">1、<span data-v-088ff047="" style="width: 100%;">为了验证植物向光性与植物生长素的关系，有人设计了如下实验方案．<br><img alt="菁优网" src="http://img.jyeoo.net/quiz/images/201701/223/c2db432a.png" style="vertical-align:middle"><br>（1）方法步骤取6个小花盆，各栽入一株品种、粗细和大小都相同的玉米幼苗（要求幼苗的真叶未突破胚芽鞘）．按如图所示方法进行实验处理．接通台灯电源24h后，打开纸盒，观察并记录6株玉米幼苗的生长情况．<br>（2）实验结果预测<br>①在以上装置中，玉米幼苗保持直立生长的是<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->装置，而玉米幼苗基本停止生长的是<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->装置，玉米幼苗保持弯曲生长的是<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->．<br>（3）部分实验结果的分析与推论<br>②根据<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->和<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->装置之间实验记录的对照分析，可以说明玉米幼苗产生向光性是由单侧光照射引起的．<br>③根据<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->号与<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->号装置实验记录的对照分析，可以说明玉米幼苗的向光性生长与玉米幼苗尖端的存在与否有关．<br>④根据<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->号与<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->号装置实验记录的对照分析，可以说明玉米幼苗感光部位在尖端．<br>⑤根据5号和6号装置之间实验记录的对照分析，只能说明<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->．</span></div> <div data-v-088ff047="" class="choice"> </div> <div data-v-088ff047="" class="ans" style="margin-top: 0.8rem; display: none;"><div data-v-088ff047="" class="analysis"><!----></div> <!----></div></div></li><li data-v-088ff047="" class="myli"><p data-v-088ff047="" class="tip">5、计算题</p> <div data-v-088ff047="" style="margin-left: 2%; margin-top: 1.5%; width: 100%;"><div data-v-088ff047="" style="font-size: 15px; color: rgb(102, 102, 102); font-weight: bold; display: flex; width: 100%;">1、<span data-v-088ff047="" style="width: 100%;">图中甲图表示一个海滩湿地生态系统中部分生物的食物关系。请据图回答问题。<img alt="菁优网" src="http://img.jyeoo.net/quiz/images/201308/131/9bec2298.png" style="vertical-align:middle"><br>（1）在该生态系统中，既是分解者又可作为消费者食物的生物是<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->。<br>（2）请根据甲图中的生态系统，写出乙图中能量金字塔各营养级的所有生物名称：①<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA--><br><!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->；②<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->；③<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->。<br>（3）有人研究该生态系统中食草虫个体存活数与发育期的关系，结果如丙图。从中可推知食草虫死亡率最大的时期是<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->。<br>（4）沼蟹会破坏大米草根系，土壤中的磷可促进藻类生长。若在食草虫幼虫期喷洒只杀灭该虫的含磷杀虫剂，则蜘蛛数量将<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->。一段时间后大米草数量不增反降，造成此结果的可能原因是大米草死亡导致细菌数量增加，通过甲图的<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->食物关系，引起沼蟹数量增加；同时因含磷杀虫剂的使用，导致藻类数量增加，通过食物链<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->也会引起沼蟹数量增加，从而造成大米草数量不增反降。<br>（5）上述事实说明，人类活动会引起生态系统中生物种类减少，从而导致生态系统的自动调节能力<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->，<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->容易受到破坏。</span></div> <div data-v-088ff047="" class="choice"> </div> <div data-v-088ff047="" class="ans" style="margin-top: 0.8rem; display: none;"><div data-v-088ff047="" class="analysis"><!----></div> <!----></div></div></li><li data-v-088ff047="" class="myli"><p data-v-088ff047="" class="tip">6、解答题</p> <div data-v-088ff047="" style="margin-left: 2%; margin-top: 1.5%; width: 100%;"><div data-v-088ff047="" style="font-size: 15px; color: rgb(102, 102, 102); font-weight: bold; display: flex; width: 100%;">1、<span data-v-088ff047="" style="width: 100%;">回答有关植物激素及其调节的问题。<br>下述是以燕麦胚芽鞘为材料进行的一系列探究生长素的实验，过程如图1。<br><img alt="菁优网" src="http://img.jyeoo.net/quiz/images/201804/112/763b141c.png" style="vertical-align:middle"><br>（1）图1中，胚芽鞘出现弯曲生长的实验是<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->。在弯曲生长的燕麦胚芽鞘中，是因光照和生长素共同作用而影响其生长方向的实验是<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->。<br>（2）生长素是最早发现的一种植物激素，下列关于生长素的叙述，正确的是<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->（多选）。<br>A．植物体内的生长素含量依植物器官和生长发育阶段而异<br>B．顶端优势现象体现了生长素调节作用的两重性<br>C．生长素对细胞伸长的促进作用与生长素浓度和植物器官等因素有关<br>D．生长素因不易被降解而广泛应用于农业生产中<br>（3）与生长素同样能促进细胞的伸长、分裂和分化的激素有<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->（写出两种）。<br>植物激素在果实发育中发挥着重要的作用。圣佩德罗型无花果一年结实两次，第一季为春果，第二季为秋果。研究者选取了5年生圣佩德罗型无花果为材料，研究了春、秋果两个幼果期以及盛花期和盛花后期雌花中植物激素的含量变化，结果如图2。<br><img alt="菁优网" src="http://img.jyeoo.net/quiz/images/201804/112/1adb7628.png" style="vertical-align:middle"><br>（4）根据图2数据推测分析，圣佩德罗型无花果一年两次所结的果实中，产量较大的是<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->。判断理由是：<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->。<br>（5）根据上述研究结果，若要增大产量较低的无花果果实的产量，最具可行性的处理方法是<!--BA--><div class="quizPutTag" contenteditable="true">&nbsp;</div><!--EA-->。</span></div> <div data-v-088ff047="" class="choice"> </div> <div data-v-088ff047="" class="ans" style="margin-top: 0.8rem; display: none;"><div data-v-088ff047="" class="analysis"><!----></div> <!----></div></div></li></div>
+
+	<!--<div id="footer" class="header-title">
+		<div class="up-header">
+			<div class="black_angle left"></div>
+			<div class="paper_name">&nbsp;</div>
+			<div class="black_angle right"></div>
+		 </div>
+	</div>-->
+</div>
+
+<div id="mark_eaxm" class="mark_eaxm"></div>
+
+
+</div><!--A4Paper-->
+</body></html>

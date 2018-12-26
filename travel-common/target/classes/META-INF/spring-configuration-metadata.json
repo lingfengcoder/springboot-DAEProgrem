@@ -1,0 +1,68 @@
+{
+  "groups": [
+    {
+      "name": "druid-boot-config",
+      "type": "com.travel.common.config.DruidConfig",
+      "sourceType": "com.travel.common.config.DruidConfig"
+    },
+    {
+      "name": "person",
+      "type": "com.travel.common.boot.property.bean.Person",
+      "sourceType": "com.travel.common.boot.property.bean.Person"
+    },
+    {
+      "name": "spring.datasource",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.travel.common.config.DruidConfig",
+      "sourceMethod": "druidSource()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "druid-boot-config.druid-password",
+      "type": "java.lang.String",
+      "sourceType": "com.travel.common.config.DruidConfig"
+    },
+    {
+      "name": "druid-boot-config.druid-root-name",
+      "type": "java.lang.String",
+      "sourceType": "com.travel.common.config.DruidConfig"
+    },
+    {
+      "name": "person.age",
+      "type": "java.lang.Integer",
+      "sourceType": "com.travel.common.boot.property.bean.Person"
+    },
+    {
+      "name": "person.birth",
+      "type": "java.util.Date",
+      "sourceType": "com.travel.common.boot.property.bean.Person"
+    },
+    {
+      "name": "person.dog",
+      "type": "com.travel.common.boot.property.bean.Dog",
+      "sourceType": "com.travel.common.boot.property.bean.Person"
+    },
+    {
+      "name": "person.last-name",
+      "type": "java.lang.String",
+      "sourceType": "com.travel.common.boot.property.bean.Person"
+    },
+    {
+      "name": "person.list",
+      "type": "java.util.List<java.lang.Object>",
+      "sourceType": "com.travel.common.boot.property.bean.Person"
+    },
+    {
+      "name": "person.map",
+      "type": "java.util.Map<java.lang.String,java.lang.Object>",
+      "sourceType": "com.travel.common.boot.property.bean.Person"
+    },
+    {
+      "name": "person.name",
+      "type": "java.lang.String",
+      "sourceType": "com.travel.common.boot.property.bean.Person"
+    }
+  ],
+  "hints": []
+}

@@ -1,0 +1,6 @@
+com\travel\backsys\controller\base\BaseController.class
+com\travel\backsys\controller\TravelAdminCtrl.class
+com\travel\backsys\service\TravelAdminServiceImpl.class
+com\travel\backsys\entity\TravelAdmin.class
+com\travel\backsys\mapper\TravelAdminMapper.class
+com\travel\backsys\service\TravelAdminServiceInterface.class

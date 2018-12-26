@@ -1,0 +1,19 @@
+
+# 默认环境
+server:
+  port: 8080
+#激活环境
+spring:
+  profiles:
+    active: dev
+  http:
+    encoding:
+      charset: utf-8
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+  #server.servlet.context-path=/travel
+#debug: true
+#输出sql
+logging:
+  level:
+    com.travel: trace

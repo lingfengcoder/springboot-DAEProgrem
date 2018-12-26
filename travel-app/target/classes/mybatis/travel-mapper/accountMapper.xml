@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.travel.app.mapper.user.AccountMapper">
+
+    <select id="getAccount" resultType="com.travel.app.entity.user.Account">
+    select * from tb_account where account_id = #{accountId}
+   </select>
+
+    <insert id="insetAccount">
+        insert into tb_account(account_id,account_money) values (accountId,accountMoney);
+    </insert>
+
+</mapper>

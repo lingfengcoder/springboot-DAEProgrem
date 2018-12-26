@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="travel-app" />
+        <module name="travel-back-sys" />
+        <module name="travel-common" />
+        <module name="travel-webapp" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="com.travel-module" target="1.8" />
+      <module name="travel-app" target="1.8" />
+      <module name="travel-back-sys" target="1.8" />
+      <module name="travel-common" target="1.8" />
+      <module name="travel-webapp" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
