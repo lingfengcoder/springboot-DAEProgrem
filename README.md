@@ -28,13 +28,8 @@
     
     //2.controller中使用
      @PostMapping("/modifyUser")
-    public Object modifyUser(HttpServletRequest req){
-        ...
-        User user=new User();
-        user.setUserId(userId);
-        user.setEmail(req.getParameter("email"));
-        user.setPhone(req.getParameter("phone"));
-        user.setPassword(req.getParameter("password"));
+    public Object modifyUser(User user){
+        
         //此处返回 没有通过正则过滤的字段信息通过string返回给客户端
         //regexUtil 中也包含返回map形式的未通过字段的方法
         //          也包含只返回boolean通过与否的方法
