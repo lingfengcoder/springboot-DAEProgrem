@@ -44,5 +44,15 @@
         ...
     }
 ~~~
+### 对象数据转换工具（拷贝）PO-VO 对象-MAP MAP-对象
+利用JAVA反射可将任意拥有相同属性名切属性类型也相同的两个对象进行数据拷贝，例如：可将数据库查出的po对象与controller中传输的数据对象进行转换，可以配合上面的“可输入数据正则过滤”的注解使用节约更多代码
+~~~java
+ @Override
+    public boolean updateUser(UserVo user) {
+        User tarUser = new User();
+        copyObject(user, tarUser);//进行数据拷贝
+        return userMapper.updateByPrimaryKeySelective(tarUser) > 0;
+    }
+~~~
 
 
