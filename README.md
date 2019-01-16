@@ -44,8 +44,7 @@
 ~~~java
  @Override
     public boolean updateUser(UserVo user) {
-        User tarUser = new User();
-        copyObject(user, tarUser);//进行数据拷贝
+        User tarUser = copyObject(user, User.class);//进行数据拷贝
         return userMapper.updateByPrimaryKeySelective(tarUser) > 0;
     }
 ~~~
